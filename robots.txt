@@ -5,4 +5,4 @@ Allow: /privacy.html
 Allow: /terms.html
 Allow: /assets/
 
-Sitemap: https://vercel.app/sitemap.xml
+Sitemap: /sitemap.xml
