@@ -4,14 +4,14 @@ on:
   schedule:
     # Berjalan otomatis setiap Senin - Jumat pukul 16:15 WIB (09:15 UTC)
     - cron: '15 9 * * 1-5'
-  workflow_dispatch: # Memunculkan tombol manual "Run workflow" untuk tes kapan saja
+  workflow_dispatch: # Mengaktifkan tombol manual "Run workflow" di web GitHub
 
 jobs:
   run-screener-engine:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Mengambil seluruh file dari repository Anda
+    # 1. Mengambil seluruh file dari repository GitHub Anda
     - name: Checkout Repository
       uses: actions/checkout@v4
 
@@ -21,22 +21,23 @@ jobs:
       with:
         python-version: '3.10'
 
-    # 3. Mengunduh library yfinance dan ta yang dibutuhkan mesin Sabda
+    # 3. Mengunduh semua library yang dibutuhkan mesin Sabda
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pandas yfinance ta
+        pip install pandas yfinance ta newsapi-python
 
-    # 4. Berpindah ke folder py-engine dan mengeksekusi script Python Sabda
+    # 4. Mengeksekusi script Python di dalam folder py-engine
+    # Server GitHub otomatis akan membaca folder templates dan menulis file web ke root
     - name: Execute Screener Engine
       run: |
         cd py-engine
         python screener_engine.py
 
-    # 5. Mengunggah otomatis file index, sitemap, robots, dll yang baru ke GitHub Anda
+    # 5. Mengunggah kembali seluruh file web statis dan database log opini terbaru ke GitHub
     - name: Commit and Push Automatically
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@://github.com"
-        git add index.html privacy.html terms.html disclaimer.html sitemap.xml robots.txt
-        git diff --quiet && git diff --staged --quiet || (git commit -m "📊 Sabda Engine: Auto-update market data & legal pages" && git push)
+        git add ../index.html ../opini.html ../privacy.html ../terms.html ../disclaimer.html ../sitemap.xml ../robots.txt Config/opini_history.json
+        git diff --quiet && git diff --staged --quiet || (git commit -m "📊 Sabda Engine: Auto-update market data, news & categories" && git push)
