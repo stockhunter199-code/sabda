@@ -1,0 +1,9 @@
+{
+  "stocks": {
+    "Banking": ["BBCA", "BBNI", "BBRI", "BMRI"],
+    "Mining & Energy": ["ADRO", "ITMG", "PTBA"],
+    "Infrastructure": ["JSMR", "PGAS", "TLKM"],
+    "Consumer Goods": ["ICBP", "INDF", "UNVR"],
+    "Diversified Industry": ["AALI", "ASII", "INKP", "MDKA", "UNTR"]
+  }
+}
