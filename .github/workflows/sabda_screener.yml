@@ -2,7 +2,7 @@ name: Sabda Auto Update Stock Screener
 
 on:
   schedule:
-    # Server GitHub otomatis berjalan setiap Senin - Jumat pukul 16:15 WIB (09:15 UTC)
+    # Berjalan otomatis setiap Senin - Jumat pukul 16:15 WIB (09:15 UTC)
     - cron: '15 9 * * 1-5'
   workflow_dispatch: # Memunculkan tombol manual "Run workflow" untuk tes kapan saja
 
@@ -11,32 +11,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Mengambil seluruh file proyek dari repository GitHub Anda
+    # 1. Mengambil seluruh file dari repository Anda
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    # 2. Menyiapkan sistem Python di server awan GitHub
+    # 2. Menyiapkan sistem Python di server GitHub
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
 
-    # 3. Mengunduh semua library yang dibutuhkan mesin analisis Sabda
+    # 3. Mengunduh library yfinance dan ta yang dibutuhkan mesin Sabda
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pandas yfinance ta newsapi-python
-
-    # 4. Melompat ke folder py-engine dan mengeksekusi skrip Python
+        pip install pandas yfinance ta
+    # 4. Berpindah ke folder py-engine dan mengeksekusi script Python Sabda
     - name: Execute Screener Engine
       run: |
         cd py-engine
         python screener_engine.py
-
-    # 5. SAKRAL: Perintah Git di bawah ini sudah diperbaiki agar murni membaca root folder tanpa tanda ../
+    # 5. Mengunggah otomatis file index, sitemap, robots, dll yang baru ke GitHub Anda
     - name: Commit and Push Automatically
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@://github.com"
-        git add index.html privacy.html terms.html disclaimer.html sitemap.xml robots.txt
+        git add index.html opini.html privacy.html terms.html disclaimer.html sitemap.xml robots.txt
         git diff --quiet && git diff --staged --quiet || (git commit -m "📊 Sabda Engine: Auto-update market data & legal pages" && git push)
