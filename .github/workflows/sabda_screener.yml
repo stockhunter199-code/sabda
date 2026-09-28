@@ -38,5 +38,5 @@ jobs:
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@://github.com"
-        git add index.html opini.html privacy.html terms.html disclaimer.html sitemap.xml robots.txt py-engine/Config/opini_history.json
-        git diff --quiet && git diff --staged --quiet || (git commit -m "📊 Sabda Engine: Auto-update market data, news & categories" && git push)
+        git add index.html privacy.html terms.html disclaimer.html sitemap.xml robots.txt
+        git diff --quiet && git diff --staged --quiet || (git commit -m "📊 Sabda Engine: Auto-update market data & legal pages" && git push)
