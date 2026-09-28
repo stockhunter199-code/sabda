@@ -1,8 +1,9 @@
 User-agent: *
 Allow: /index.html
+Allow: /opini.html
 Allow: /disclaimer.html
 Allow: /privacy.html
 Allow: /terms.html
 Allow: /assets/
 
-Sitemap: https://stockhunter199-code.github.io/sabda/sitemap.xml
+Sitemap: https://vercel.app/sitemap.xml

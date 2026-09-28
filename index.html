@@ -4,24 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Analisa Real-Time Saham Pilihan | Sabda Stock Screener</title>
-    <meta name="description" content="Dashboard pantauan menyeluruh pergerakan saham pilihan dengan algoritma premium Sabda.">
-    <link rel="canonical" href="https://stockhunter199-code.github.io/sabda/">
+    <meta name="description" content="Dashboard pantauan menyeluruh pergerakan saham pilihan berdasarkan sektor dengan algoritma premium Sabda.">
+    <link rel="canonical" href="https://vercel.app/">
     <link rel="stylesheet" href="assets/style.css">
+    <style>
+        .filter-container { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .btn-filter { background-color: #1e293b; color: #9ca3af; border: 1px solid #334155; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; }
+        .btn-filter.active, .btn-filter:hover { background-color: #10b981; color: #ffffff; border-color: #10b981; }
+        
+        /* DESAIN JENDELA POPUP MODAL DESKTOP RAKSASA YANG LUAS */
+        .modal-box { max-width: 900px !important; width: 95%; padding: 28px !important; background-color: #0b111e; border: 1px solid #2d3748; border-radius: 20px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7); max-height: 95vh; overflow-y: auto; }
+        .action-plan-container { background-color: #111827; border: 1px solid #1f2937; border-radius: 12px; padding: 18px; margin-top: 16px; }
+        .action-plan-title { font-size: 14px; font-weight: 700; color: #10b981; text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px solid #1f2937; padding-bottom: 6px; letter-spacing: 0.5px; }
+        .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .action-box { background-color: #0f172a; border: 1px solid #1f2937; border-radius: 8px; padding: 14px; }
+        .action-box h5 { font-size: 13px; font-weight: bold; color: #ffffff; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+        .action-box p { font-size: 13px; color: #9ca3af; line-height: 1.5; margin: 0; }
+        
+        /* ADAPTASI RESPONSIF UNTUK TAMPILAN HP AGAR NYAMAN DAN PAS */
+        @media (max-width: 768px) {
+            .modal-box { padding: 18px !important; }
+            .action-grid { grid-template-columns: 1fr; gap: 12px; }
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>📊 Sabda Stock Screener</h1>
-        <p>Dashboard Premium Analisis Real-Time Seluruh Saham Pilihan</p>
+        <p>Dashboard Premium Analisis Real-Time Seluruh Saham Pilihan Utama</p>
     </header>
     <main>
         
-        <article class="seo-intro" style="margin-top:20px;">
-            <h2>Metode & Panduan Analisis Data Sabda</h2>
-            <p>Klik pada baris saham di dalam tabel di bawah ini untuk memunculkan **Dashboard Ringkasan Strategi, Struktur Fundamental Korporasi, serta Risk Management Area** secara lengkap.</p>
-        </article>
         
+        <article class="seo-intro" style="margin-top:20px;">
+            <h2>Metode & Panduan Analisis Kategori Sektor Sabda</h2>
+            <p>Gunakan tombol filter di bawah ini untuk menyaring saham berdasarkan sektor fundamental kuat. Klik pada baris saham di dalam tabel untuk memunculkan <strong>Dashboard Jendela Strategi Ganda, Struktur Fundamental Korporasi, serta Risk Management Area</strong> secara lengkap.</p>
+        </article>
+
+        <div class="filter-container">
+            <button class="btn-filter active" onclick="filterSektor('ALL')">🌐 Tampilkan Semua</button>
+            <button class="btn-filter" onclick="filterSektor('Banking')">🏦 Banking</button>
+            <button class="btn-filter" onclick="filterSektor('Mining & Energy')">⚡ Mining & Energy</button>
+            <button class="btn-filter" onclick="filterSektor('Infrastructure')">🛣️ Infrastructure</button>
+            <button class="btn-filter" onclick="filterSektor('Consumer Goods')">🛒 Consumer Goods</button>
+            <button class="btn-filter" onclick="filterSektor('Diversified Industry')">🏢 Diversified Industry</button>
+        </div>
+
+        
+
         <section class="card">
-            <div class="card-header"><h3>📋 Hasil Screening & Rekomendasi Aksi Pasar</h3></div>
+            <div class="card-header"><h3>📋 Hasil Screening & Rekomendasi Aksi Pasar (Urutan Abjad A-Z)</h3></div>
             <div class="table-container">
                 <table>
                     <thead>
@@ -29,198 +61,198 @@
                             <th>Ticker</th><th>Harga Terakhir</th><th>Tren Pasar</th><th>RSI (14)</th><th>Rasio Vol</th><th>Rekomendasi</th><th>Zona Beli (Entry)</th><th>Target Profit</th><th>Stop Loss</th>
                         </tr>
                     </thead>
-                    <tbody><tr data-ticker="AALI" data-company="PT Astra Agro Lestari Tbk" 
+                    <tbody><tr data-ticker="AALI" data-company="PT Astra Agro Lestari Tbk" data-sektor="Diversified Industry"
             data-price="Rp 7,825" data-action="HOLD / TAKE PROFIT" data-badge="bg-hold"
             data-roe="8.1" data-per="8.1" data-mcap="15.1 Triliun"
             data-rsi="42.84" data-volatilitas="35.4% (Tinggi)" data-liquidity="Tinggi"
-            data-entry="Wait for Pullback / Jangan Kejar" data-target="Siap Ambil Untung" data-sl="Pasang Trailing Stop">
-            <td class="txt-ticker">AALI</td>
-            <td style="font-weight: 500;">Rp 7,825</td>
-            <td style="color: {'#10b981' if row['Tren'] == 'Uptrend' else '#ef4444'}; font-weight: 600;">Uptrend</td>
-            <td>42.84</td>
-            <td>0.5x</td>
-            <td><span class="badge bg-hold">HOLD / TAKE PROFIT</span></td>
-            <td style="color: #ffffff; font-weight: 500;">Wait for Pullback / Jangan Kejar</td>
-            <td style="color: #10b981; font-weight: 600;">Siap Ambil Untung</td>
-            <td style="color: #ef4444; font-weight: 600;">Pasang Trailing Stop</td>
-        </tr><tr data-ticker="ITMG" data-company="PT Indo Tambangraya Megah Tbk" 
+            data-entry="Jangan Kejar / Wait for Pullback" data-target="Siap Ambil Untung" data-sl="Pasang Trailing Stop"
+            data-planbelum="<strong>DILARANG MASUK (FOMO)!</strong> Harga sudah terlalu tinggi dan jenuh beli. Tunggu hingga terjadi koreksi sehat (Pullback)." data-plansudah="Siap-siap amankan keuntungan Anda. Pasang pengaman batas *trailing stop* ketat harian agar profit tidak amblas kembali.">
+            <td class="txt-ticker">AALI</td><td style="font-weight: 500;">Rp 7,825</td>
+            <td style="color: #10b981; font-weight: 600;">Uptrend</td>
+            <td>42.84</td><td>0.5x</td><td><span class="badge bg-hold">HOLD / TAKE PROFIT</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Jangan Kejar / Wait for Pullback</td><td style="color: #10b981; font-weight: 600;">Siap Ambil Untung</td><td style="color: #ef4444; font-weight: 600;">Pasang Trailing Stop</td>
+        </tr><tr data-ticker="ADRO" data-company="PT Alamtri Resources Indonesia Tbk" data-sektor="Mining & Energy"
+            data-price="Rp 2,590" data-action="HOLD / TAKE PROFIT" data-badge="bg-hold"
+            data-roe="12.3" data-per="7.2" data-mcap="74.6 Triliun"
+            data-rsi="47.12" data-volatilitas="26.6% (Tinggi)" data-liquidity="Sangat Tinggi"
+            data-entry="Jangan Kejar / Wait for Pullback" data-target="Siap Ambil Untung" data-sl="Pasang Trailing Stop"
+            data-planbelum="<strong>DILARANG MASUK (FOMO)!</strong> Harga sudah terlalu tinggi dan jenuh beli. Tunggu hingga terjadi koreksi sehat (Pullback)." data-plansudah="Siap-siap amankan keuntungan Anda. Pasang pengaman batas *trailing stop* ketat harian agar profit tidak amblas kembali.">
+            <td class="txt-ticker">ADRO</td><td style="font-weight: 500;">Rp 2,590</td>
+            <td style="color: #10b981; font-weight: 600;">Uptrend</td>
+            <td>47.12</td><td>0.6x</td><td><span class="badge bg-hold">HOLD / TAKE PROFIT</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Jangan Kejar / Wait for Pullback</td><td style="color: #10b981; font-weight: 600;">Siap Ambil Untung</td><td style="color: #ef4444; font-weight: 600;">Pasang Trailing Stop</td>
+        </tr><tr data-ticker="ASII" data-company="PT Astra International Tbk" data-sektor="Diversified Industry"
+            data-price="Rp 4,670" data-action="WAIT AND SEE" data-badge="bg-avoid"
+            data-roe="12.0" data-per="6.3" data-mcap="186.4 Triliun"
+            data-rsi="37.44" data-volatilitas="26.7% (Tinggi)" data-liquidity="Sangat Tinggi"
+            data-entry="Tahan Cash / Batasi Diri" data-target="Menunggu Konfirmasi" data-sl="Tunggu Sinyal Pembalikan"
+            data-planbelum="<strong>JANGAN MENYENTUH SAHAM INI!</strong> Tren jangka menengah sedang runtuh di bawah garis MA50. Amankan cash Anda." data-plansudah="Struktur harga patah. Jika posisi floating loss masih dangkal, pertimbangkan batasi risiko. Jika dalam, amankan cash tersisa dan jangan tambah muatan.">
+            <td class="txt-ticker">ASII</td><td style="font-weight: 500;">Rp 4,670</td>
+            <td style="color: #ef4444; font-weight: 600;">Downtrend</td>
+            <td>37.44</td><td>0.6x</td><td><span class="badge bg-avoid">WAIT AND SEE</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Tahan Cash / Batasi Diri</td><td style="color: #10b981; font-weight: 600;">Menunggu Konfirmasi</td><td style="color: #ef4444; font-weight: 600;">Tunggu Sinyal Pembalikan</td>
+        </tr><tr data-ticker="BBCA" data-company="PT Bank Central Asia Tbk" data-sektor="Banking"
+            data-price="Rp 6,225" data-action="WAIT AND SEE" data-badge="bg-avoid"
+            data-roe="21.8" data-per="13.2" data-mcap="764.7 Triliun"
+            data-rsi="42.8" data-volatilitas="22.3% (Standar)" data-liquidity="Sangat Tinggi"
+            data-entry="Tahan Cash / Batasi Diri" data-target="Menunggu Konfirmasi" data-sl="Tunggu Sinyal Pembalikan"
+            data-planbelum="<strong>JANGAN MENYENTUH SAHAM INI!</strong> Tren jangka menengah sedang runtuh di bawah garis MA50. Amankan cash Anda." data-plansudah="Struktur harga patah. Jika posisi floating loss masih dangkal, pertimbangkan batasi risiko. Jika dalam, amankan cash tersisa dan jangan tambah muatan.">
+            <td class="txt-ticker">BBCA</td><td style="font-weight: 500;">Rp 6,225</td>
+            <td style="color: #ef4444; font-weight: 600;">Downtrend</td>
+            <td>42.8</td><td>1.0x</td><td><span class="badge bg-avoid">WAIT AND SEE</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Tahan Cash / Batasi Diri</td><td style="color: #10b981; font-weight: 600;">Menunggu Konfirmasi</td><td style="color: #ef4444; font-weight: 600;">Tunggu Sinyal Pembalikan</td>
+        </tr><tr data-ticker="BBNI" data-company="PT Bank Negara Indonesia (Persero) Tbk" data-sektor="Banking"
+            data-price="Rp 3,460" data-action="WAIT AND SEE" data-badge="bg-avoid"
+            data-roe="12.4" data-per="6.2" data-mcap="128.9 Triliun"
+            data-rsi="32.47" data-volatilitas="22.2% (Standar)" data-liquidity="Sangat Tinggi"
+            data-entry="Tahan Cash / Batasi Diri" data-target="Menunggu Konfirmasi" data-sl="Tunggu Sinyal Pembalikan"
+            data-planbelum="<strong>JANGAN MENYENTUH SAHAM INI!</strong> Tren jangka menengah sedang runtuh di bawah garis MA50. Amankan cash Anda." data-plansudah="Struktur harga patah. Jika posisi floating loss masih dangkal, pertimbangkan batasi risiko. Jika dalam, amankan cash tersisa dan jangan tambah muatan.">
+            <td class="txt-ticker">BBNI</td><td style="font-weight: 500;">Rp 3,460</td>
+            <td style="color: #ef4444; font-weight: 600;">Downtrend</td>
+            <td>32.47</td><td>0.8x</td><td><span class="badge bg-avoid">WAIT AND SEE</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Tahan Cash / Batasi Diri</td><td style="color: #10b981; font-weight: 600;">Menunggu Konfirmasi</td><td style="color: #ef4444; font-weight: 600;">Tunggu Sinyal Pembalikan</td>
+        </tr><tr data-ticker="BBRI" data-company="PT Bank Rakyat Indonesia (Persero) Tbk" data-sektor="Banking"
+            data-price="Rp 3,140" data-action="WAIT AND SEE" data-badge="bg-avoid"
+            data-roe="19.0" data-per="7.7" data-mcap="473.1 Triliun"
+            data-rsi="41.1" data-volatilitas="29.8% (Tinggi)" data-liquidity="Sangat Tinggi"
+            data-entry="Tahan Cash / Batasi Diri" data-target="Menunggu Konfirmasi" data-sl="Tunggu Sinyal Pembalikan"
+            data-planbelum="<strong>JANGAN MENYENTUH SAHAM INI!</strong> Tren jangka menengah sedang runtuh di bawah garis MA50. Amankan cash Anda." data-plansudah="Struktur harga patah. Jika posisi floating loss masih dangkal, pertimbangkan batasi risiko. Jika dalam, amankan cash tersisa dan jangan tambah muatan.">
+            <td class="txt-ticker">BBRI</td><td style="font-weight: 500;">Rp 3,140</td>
+            <td style="color: #ef4444; font-weight: 600;">Downtrend</td>
+            <td>41.1</td><td>0.6x</td><td><span class="badge bg-avoid">WAIT AND SEE</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Tahan Cash / Batasi Diri</td><td style="color: #10b981; font-weight: 600;">Menunggu Konfirmasi</td><td style="color: #ef4444; font-weight: 600;">Tunggu Sinyal Pembalikan</td>
+        </tr><tr data-ticker="BMRI" data-company="PT Bank Mandiri (Persero) Tbk" data-sektor="Banking"
+            data-price="Rp 4,020" data-action="WAIT AND SEE" data-badge="bg-avoid"
+            data-roe="22.4" data-per="6.0" data-mcap="373.8 Triliun"
+            data-rsi="36.81" data-volatilitas="24.3% (Standar)" data-liquidity="Sangat Tinggi"
+            data-entry="Tahan Cash / Batasi Diri" data-target="Menunggu Konfirmasi" data-sl="Tunggu Sinyal Pembalikan"
+            data-planbelum="<strong>JANGAN MENYENTUH SAHAM INI!</strong> Tren jangka menengah sedang runtuh di bawah garis MA50. Amankan cash Anda." data-plansudah="Struktur harga patah. Jika posisi floating loss masih dangkal, pertimbangkan batasi risiko. Jika dalam, amankan cash tersisa dan jangan tambah muatan.">
+            <td class="txt-ticker">BMRI</td><td style="font-weight: 500;">Rp 4,020</td>
+            <td style="color: #ef4444; font-weight: 600;">Downtrend</td>
+            <td>36.81</td><td>0.9x</td><td><span class="badge bg-avoid">WAIT AND SEE</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Tahan Cash / Batasi Diri</td><td style="color: #10b981; font-weight: 600;">Menunggu Konfirmasi</td><td style="color: #ef4444; font-weight: 600;">Tunggu Sinyal Pembalikan</td>
+        </tr><tr data-ticker="ICBP" data-company="PT Indofood CBP Sukses Makmur Tbk" data-sektor="Consumer Goods"
+            data-price="Rp 6,650" data-action="WAIT AND SEE" data-badge="bg-avoid"
+            data-roe="12.6" data-per="10.5" data-mcap="77.6 Triliun"
+            data-rsi="34.65" data-volatilitas="28.3% (Tinggi)" data-liquidity="Tinggi"
+            data-entry="Tahan Cash / Batasi Diri" data-target="Menunggu Konfirmasi" data-sl="Tunggu Sinyal Pembalikan"
+            data-planbelum="<strong>JANGAN MENYENTUH SAHAM INI!</strong> Tren jangka menengah sedang runtuh di bawah garis MA50. Amankan cash Anda." data-plansudah="Struktur harga patah. Jika posisi floating loss masih dangkal, pertimbangkan batasi risiko. Jika dalam, amankan cash tersisa dan jangan tambah muatan.">
+            <td class="txt-ticker">ICBP</td><td style="font-weight: 500;">Rp 6,650</td>
+            <td style="color: #ef4444; font-weight: 600;">Downtrend</td>
+            <td>34.65</td><td>0.7x</td><td><span class="badge bg-avoid">WAIT AND SEE</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Tahan Cash / Batasi Diri</td><td style="color: #10b981; font-weight: 600;">Menunggu Konfirmasi</td><td style="color: #ef4444; font-weight: 600;">Tunggu Sinyal Pembalikan</td>
+        </tr><tr data-ticker="INDF" data-company="PT Indofood Sukses Makmur Tbk" data-sektor="Consumer Goods"
+            data-price="Rp 6,650" data-action="DIVIDEND CUSHION" data-badge="bg-bow"
+            data-roe="12.1" data-per="6.1" data-mcap="58.4 Triliun"
+            data-rsi="27.25" data-volatilitas="23.3% (Standar)" data-liquidity="Tinggi"
+            data-entry="Koleksi Bertahap (Investasi)" data-target="Fokus Siklus Dividen" data-sl="Tidak Perlu SL (Aman Fundamental)"
+            data-planbelum="Emiten fundamental kuat ini sudah terlalu murah secara siklus. Sangat cocok dibeli untuk tujuan tabungan investasi dividen tahunan." data-plansudah="Tidak perlu panik cut-loss berdarah. Fundamental perusahaan sangat sehat; tahan posisi untuk menikmati bagi-hasil dividennya.">
+            <td class="txt-ticker">INDF</td><td style="font-weight: 500;">Rp 6,650</td>
+            <td style="color: #ef4444; font-weight: 600;">Downtrend</td>
+            <td>27.25</td><td>1.0x</td><td><span class="badge bg-bow">DIVIDEND CUSHION</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Koleksi Bertahap (Investasi)</td><td style="color: #10b981; font-weight: 600;">Fokus Siklus Dividen</td><td style="color: #ef4444; font-weight: 600;">Tidak Perlu SL (Aman Fundamental)</td>
+        </tr><tr data-ticker="INKP" data-company="PT Indah Kiat Pulp & Paper Tbk" data-sektor="Diversified Industry"
+            data-price="Rp 7,975" data-action="WAIT AND SEE" data-badge="bg-avoid"
+            data-roe="9.6" data-per="3.7" data-mcap="43.6 Triliun"
+            data-rsi="34.45" data-volatilitas="33.9% (Tinggi)" data-liquidity="Tinggi"
+            data-entry="Tahan Cash / Batasi Diri" data-target="Menunggu Konfirmasi" data-sl="Tunggu Sinyal Pembalikan"
+            data-planbelum="<strong>JANGAN MENYENTUH SAHAM INI!</strong> Tren jangka menengah sedang runtuh di bawah garis MA50. Amankan cash Anda." data-plansudah="Struktur harga patah. Jika posisi floating loss masih dangkal, pertimbangkan batasi risiko. Jika dalam, amankan cash tersisa dan jangan tambah muatan.">
+            <td class="txt-ticker">INKP</td><td style="font-weight: 500;">Rp 7,975</td>
+            <td style="color: #ef4444; font-weight: 600;">Downtrend</td>
+            <td>34.45</td><td>1.0x</td><td><span class="badge bg-avoid">WAIT AND SEE</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Tahan Cash / Batasi Diri</td><td style="color: #10b981; font-weight: 600;">Menunggu Konfirmasi</td><td style="color: #ef4444; font-weight: 600;">Tunggu Sinyal Pembalikan</td>
+        </tr><tr data-ticker="ITMG" data-company="PT Indo Tambangraya Megah Tbk" data-sektor="Mining & Energy"
             data-price="Rp 25,625" data-action="HOLD / TAKE PROFIT" data-badge="bg-hold"
-            data-roe="11.1" data-per="7.6" data-mcap="28.3 Triliun"
+            data-roe="11.1" data-per="7.6" data-mcap="28.6 Triliun"
             data-rsi="49.06" data-volatilitas="19.0% (Standar)" data-liquidity="Tinggi"
-            data-entry="Wait for Pullback / Jangan Kejar" data-target="Siap Ambil Untung" data-sl="Pasang Trailing Stop">
-            <td class="txt-ticker">ITMG</td>
-            <td style="font-weight: 500;">Rp 25,625</td>
-            <td style="color: {'#10b981' if row['Tren'] == 'Uptrend' else '#ef4444'}; font-weight: 600;">Uptrend</td>
-            <td>49.06</td>
-            <td>0.7x</td>
-            <td><span class="badge bg-hold">HOLD / TAKE PROFIT</span></td>
-            <td style="color: #ffffff; font-weight: 500;">Wait for Pullback / Jangan Kejar</td>
-            <td style="color: #10b981; font-weight: 600;">Siap Ambil Untung</td>
-            <td style="color: #ef4444; font-weight: 600;">Pasang Trailing Stop</td>
-        </tr><tr data-ticker="PTBA" data-company="PT Bukit Asam (Persero) Tbk" 
+            data-entry="Jangan Kejar / Wait for Pullback" data-target="Siap Ambil Untung" data-sl="Pasang Trailing Stop"
+            data-planbelum="<strong>DILARANG MASUK (FOMO)!</strong> Harga sudah terlalu tinggi dan jenuh beli. Tunggu hingga terjadi koreksi sehat (Pullback)." data-plansudah="Siap-siap amankan keuntungan Anda. Pasang pengaman batas *trailing stop* ketat harian agar profit tidak amblas kembali.">
+            <td class="txt-ticker">ITMG</td><td style="font-weight: 500;">Rp 25,625</td>
+            <td style="color: #10b981; font-weight: 600;">Uptrend</td>
+            <td>49.06</td><td>0.7x</td><td><span class="badge bg-hold">HOLD / TAKE PROFIT</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Jangan Kejar / Wait for Pullback</td><td style="color: #10b981; font-weight: 600;">Siap Ambil Untung</td><td style="color: #ef4444; font-weight: 600;">Pasang Trailing Stop</td>
+        </tr><tr data-ticker="JSMR" data-company="PT Jasa Marga (Persero) Tbk" data-sektor="Infrastructure"
+            data-price="Rp 2,690" data-action="WAIT AND SEE" data-badge="bg-avoid"
+            data-roe="8.2" data-per="5.3" data-mcap="19.5 Triliun"
+            data-rsi="34.57" data-volatilitas="21.2% (Standar)" data-liquidity="Tinggi"
+            data-entry="Tahan Cash / Batasi Diri" data-target="Menunggu Konfirmasi" data-sl="Tunggu Sinyal Pembalikan"
+            data-planbelum="<strong>JANGAN MENYENTUH SAHAM INI!</strong> Tren jangka menengah sedang runtuh di bawah garis MA50. Amankan cash Anda." data-plansudah="Struktur harga patah. Jika posisi floating loss masih dangkal, pertimbangkan batasi risiko. Jika dalam, amankan cash tersisa dan jangan tambah muatan.">
+            <td class="txt-ticker">JSMR</td><td style="font-weight: 500;">Rp 2,690</td>
+            <td style="color: #ef4444; font-weight: 600;">Downtrend</td>
+            <td>34.57</td><td>0.5x</td><td><span class="badge bg-avoid">WAIT AND SEE</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Tahan Cash / Batasi Diri</td><td style="color: #10b981; font-weight: 600;">Menunggu Konfirmasi</td><td style="color: #ef4444; font-weight: 600;">Tunggu Sinyal Pembalikan</td>
+        </tr><tr data-ticker="MDKA" data-company="PT Merdeka Copper Gold Tbk" data-sektor="Diversified Industry"
+            data-price="Rp 2,920" data-action="HOLD / TAKE PROFIT" data-badge="bg-hold"
+            data-roe="7.5" data-per="1587.0" data-mcap="71.3 Triliun"
+            data-rsi="49.14" data-volatilitas="54.4% (Tinggi)" data-liquidity="Sangat Tinggi"
+            data-entry="Jangan Kejar / Wait for Pullback" data-target="Siap Ambil Untung" data-sl="Pasang Trailing Stop"
+            data-planbelum="<strong>DILARANG MASUK (FOMO)!</strong> Harga sudah terlalu tinggi dan jenuh beli. Tunggu hingga terjadi koreksi sehat (Pullback)." data-plansudah="Siap-siap amankan keuntungan Anda. Pasang pengaman batas *trailing stop* ketat harian agar profit tidak amblas kembali.">
+            <td class="txt-ticker">MDKA</td><td style="font-weight: 500;">Rp 2,920</td>
+            <td style="color: #10b981; font-weight: 600;">Uptrend</td>
+            <td>49.14</td><td>1.0x</td><td><span class="badge bg-hold">HOLD / TAKE PROFIT</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Jangan Kejar / Wait for Pullback</td><td style="color: #10b981; font-weight: 600;">Siap Ambil Untung</td><td style="color: #ef4444; font-weight: 600;">Pasang Trailing Stop</td>
+        </tr><tr data-ticker="PGAS" data-company="PT Perusahaan Gas Negara (Persero) Tbk" data-sektor="Infrastructure"
+            data-price="Rp 1,440" data-action="WAIT AND SEE" data-badge="bg-avoid"
+            data-roe="10.1" data-per="8.0" data-mcap="34.9 Triliun"
+            data-rsi="37.54" data-volatilitas="21.4% (Standar)" data-liquidity="Tinggi"
+            data-entry="Tahan Cash / Batasi Diri" data-target="Menunggu Konfirmasi" data-sl="Tunggu Sinyal Pembalikan"
+            data-planbelum="<strong>JANGAN MENYENTUH SAHAM INI!</strong> Tren jangka menengah sedang runtuh di bawah garis MA50. Amankan cash Anda." data-plansudah="Struktur harga patah. Jika posisi floating loss masih dangkal, pertimbangkan batasi risiko. Jika dalam, amankan cash tersisa dan jangan tambah muatan.">
+            <td class="txt-ticker">PGAS</td><td style="font-weight: 500;">Rp 1,440</td>
+            <td style="color: #ef4444; font-weight: 600;">Downtrend</td>
+            <td>37.54</td><td>0.4x</td><td><span class="badge bg-avoid">WAIT AND SEE</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Tahan Cash / Batasi Diri</td><td style="color: #10b981; font-weight: 600;">Menunggu Konfirmasi</td><td style="color: #ef4444; font-weight: 600;">Tunggu Sinyal Pembalikan</td>
+        </tr><tr data-ticker="PTBA" data-company="PT Bukit Asam (Persero) Tbk" data-sektor="Mining & Energy"
             data-price="Rp 3,180" data-action="HOLD / TAKE PROFIT" data-badge="bg-hold"
             data-roe="21.1" data-per="7.7" data-mcap="36.6 Triliun"
             data-rsi="72.86" data-volatilitas="38.9% (Tinggi)" data-liquidity="Sangat Tinggi"
-            data-entry="Wait for Pullback / Jangan Kejar" data-target="Siap Ambil Untung" data-sl="Pasang Trailing Stop">
-            <td class="txt-ticker">PTBA</td>
-            <td style="font-weight: 500;">Rp 3,180</td>
-            <td style="color: {'#10b981' if row['Tren'] == 'Uptrend' else '#ef4444'}; font-weight: 600;">Uptrend</td>
-            <td>72.86</td>
-            <td>1.1x</td>
-            <td><span class="badge bg-hold">HOLD / TAKE PROFIT</span></td>
-            <td style="color: #ffffff; font-weight: 500;">Wait for Pullback / Jangan Kejar</td>
-            <td style="color: #10b981; font-weight: 600;">Siap Ambil Untung</td>
-            <td style="color: #ef4444; font-weight: 600;">Pasang Trailing Stop</td>
-        </tr><tr data-ticker="BBRI" data-company="PT Bank Rakyat Indonesia (Persero) Tbk" 
-            data-price="Rp 3,140" data-action="AVOID (WATCHLIST)" data-badge="bg-avoid"
-            data-roe="19.0" data-per="7.7" data-mcap="472.8 Triliun"
-            data-rsi="41.1" data-volatilitas="29.8% (Tinggi)" data-liquidity="Sangat Tinggi"
-            data-entry="Hindari Terlebih Dahulu" data-target="-" data-sl="-">
-            <td class="txt-ticker">BBRI</td>
-            <td style="font-weight: 500;">Rp 3,140</td>
-            <td style="color: {'#10b981' if row['Tren'] == 'Uptrend' else '#ef4444'}; font-weight: 600;">Downtrend</td>
-            <td>41.1</td>
-            <td>0.6x</td>
-            <td><span class="badge bg-avoid">AVOID (WATCHLIST)</span></td>
-            <td style="color: #ffffff; font-weight: 500;">Hindari Terlebih Dahulu</td>
-            <td style="color: #10b981; font-weight: 600;">-</td>
-            <td style="color: #ef4444; font-weight: 600;">-</td>
-        </tr><tr data-ticker="BBCA" data-company="PT Bank Central Asia Tbk" 
-            data-price="Rp 6,225" data-action="AVOID (WATCHLIST)" data-badge="bg-avoid"
-            data-roe="21.8" data-per="13.2" data-mcap="764.9 Triliun"
-            data-rsi="42.8" data-volatilitas="22.3% (Standar)" data-liquidity="Sangat Tinggi"
-            data-entry="Hindari Terlebih Dahulu" data-target="-" data-sl="-">
-            <td class="txt-ticker">BBCA</td>
-            <td style="font-weight: 500;">Rp 6,225</td>
-            <td style="color: {'#10b981' if row['Tren'] == 'Uptrend' else '#ef4444'}; font-weight: 600;">Downtrend</td>
-            <td>42.8</td>
-            <td>1.0x</td>
-            <td><span class="badge bg-avoid">AVOID (WATCHLIST)</span></td>
-            <td style="color: #ffffff; font-weight: 500;">Hindari Terlebih Dahulu</td>
-            <td style="color: #10b981; font-weight: 600;">-</td>
-            <td style="color: #ef4444; font-weight: 600;">-</td>
-        </tr><tr data-ticker="UNVR" data-company="PT Unilever Indonesia Tbk" 
-            data-price="Rp 1,635" data-action="AVOID (WATCHLIST)" data-badge="bg-avoid"
-            data-roe="133.4" data-per="16.7" data-mcap="62.1 Triliun"
-            data-rsi="40.93" data-volatilitas="15.7% (Standar)" data-liquidity="Tinggi"
-            data-entry="Hindari Terlebih Dahulu" data-target="-" data-sl="-">
-            <td class="txt-ticker">UNVR</td>
-            <td style="font-weight: 500;">Rp 1,635</td>
-            <td style="color: {'#10b981' if row['Tren'] == 'Uptrend' else '#ef4444'}; font-weight: 600;">Downtrend</td>
-            <td>40.93</td>
-            <td>0.5x</td>
-            <td><span class="badge bg-avoid">AVOID (WATCHLIST)</span></td>
-            <td style="color: #ffffff; font-weight: 500;">Hindari Terlebih Dahulu</td>
-            <td style="color: #10b981; font-weight: 600;">-</td>
-            <td style="color: #ef4444; font-weight: 600;">-</td>
-        </tr><tr data-ticker="ASII" data-company="PT Astra International Tbk" 
-            data-price="Rp 4,670" data-action="AVOID (WATCHLIST)" data-badge="bg-avoid"
-            data-roe="12.0" data-per="6.3" data-mcap="186.4 Triliun"
-            data-rsi="37.44" data-volatilitas="26.7% (Tinggi)" data-liquidity="Sangat Tinggi"
-            data-entry="Hindari Terlebih Dahulu" data-target="-" data-sl="-">
-            <td class="txt-ticker">ASII</td>
-            <td style="font-weight: 500;">Rp 4,670</td>
-            <td style="color: {'#10b981' if row['Tren'] == 'Uptrend' else '#ef4444'}; font-weight: 600;">Downtrend</td>
-            <td>37.44</td>
-            <td>0.6x</td>
-            <td><span class="badge bg-avoid">AVOID (WATCHLIST)</span></td>
-            <td style="color: #ffffff; font-weight: 500;">Hindari Terlebih Dahulu</td>
-            <td style="color: #10b981; font-weight: 600;">-</td>
-            <td style="color: #ef4444; font-weight: 600;">-</td>
-        </tr><tr data-ticker="TLKM" data-company="Perusahaan Perseroan (Persero) PT Telekomunikasi Indonesia Tbk" 
-            data-price="Rp 2,370" data-action="AVOID (WATCHLIST)" data-badge="bg-avoid"
+            data-entry="Jangan Kejar / Wait for Pullback" data-target="Siap Ambil Untung" data-sl="Pasang Trailing Stop"
+            data-planbelum="<strong>DILARANG MASUK (FOMO)!</strong> Harga sudah terlalu tinggi dan jenuh beli. Tunggu hingga terjadi koreksi sehat (Pullback)." data-plansudah="Siap-siap amankan keuntungan Anda. Pasang pengaman batas *trailing stop* ketat harian agar profit tidak amblas kembali.">
+            <td class="txt-ticker">PTBA</td><td style="font-weight: 500;">Rp 3,180</td>
+            <td style="color: #10b981; font-weight: 600;">Uptrend</td>
+            <td>72.86</td><td>1.1x</td><td><span class="badge bg-hold">HOLD / TAKE PROFIT</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Jangan Kejar / Wait for Pullback</td><td style="color: #10b981; font-weight: 600;">Siap Ambil Untung</td><td style="color: #ef4444; font-weight: 600;">Pasang Trailing Stop</td>
+        </tr><tr data-ticker="TLKM" data-company="Perusahaan Perseroan (Persero) PT Telekomunikasi Indonesia Tbk" data-sektor="Infrastructure"
+            data-price="Rp 2,370" data-action="DIVIDEND CUSHION" data-badge="bg-bow"
             data-roe="17.7" data-per="13.3" data-mcap="233.6 Triliun"
             data-rsi="27.61" data-volatilitas="22.2% (Standar)" data-liquidity="Sangat Tinggi"
-            data-entry="Hindari Terlebih Dahulu" data-target="-" data-sl="-">
-            <td class="txt-ticker">TLKM</td>
-            <td style="font-weight: 500;">Rp 2,370</td>
-            <td style="color: {'#10b981' if row['Tren'] == 'Uptrend' else '#ef4444'}; font-weight: 600;">Downtrend</td>
-            <td>27.61</td>
-            <td>1.2x</td>
-            <td><span class="badge bg-avoid">AVOID (WATCHLIST)</span></td>
-            <td style="color: #ffffff; font-weight: 500;">Hindari Terlebih Dahulu</td>
-            <td style="color: #10b981; font-weight: 600;">-</td>
-            <td style="color: #ef4444; font-weight: 600;">-</td>
-        </tr><tr data-ticker="BBNI" data-company="PT Bank Negara Indonesia (Persero) Tbk" 
-            data-price="Rp 3,460" data-action="AVOID (WATCHLIST)" data-badge="bg-avoid"
-            data-roe="12.4" data-per="6.2" data-mcap="128.8 Triliun"
-            data-rsi="32.47" data-volatilitas="22.2% (Standar)" data-liquidity="Sangat Tinggi"
-            data-entry="Hindari Terlebih Dahulu" data-target="-" data-sl="-">
-            <td class="txt-ticker">BBNI</td>
-            <td style="font-weight: 500;">Rp 3,460</td>
-            <td style="color: {'#10b981' if row['Tren'] == 'Uptrend' else '#ef4444'}; font-weight: 600;">Downtrend</td>
-            <td>32.47</td>
-            <td>0.8x</td>
-            <td><span class="badge bg-avoid">AVOID (WATCHLIST)</span></td>
-            <td style="color: #ffffff; font-weight: 500;">Hindari Terlebih Dahulu</td>
-            <td style="color: #10b981; font-weight: 600;">-</td>
-            <td style="color: #ef4444; font-weight: 600;">-</td>
-        </tr><tr data-ticker="BMRI" data-company="PT Bank Mandiri (Persero) Tbk" 
-            data-price="Rp 4,020" data-action="AVOID (WATCHLIST)" data-badge="bg-avoid"
-            data-roe="22.4" data-per="6.0" data-mcap="375.2 Triliun"
-            data-rsi="36.81" data-volatilitas="24.3% (Standar)" data-liquidity="Sangat Tinggi"
-            data-entry="Hindari Terlebih Dahulu" data-target="-" data-sl="-">
-            <td class="txt-ticker">BMRI</td>
-            <td style="font-weight: 500;">Rp 4,020</td>
-            <td style="color: {'#10b981' if row['Tren'] == 'Uptrend' else '#ef4444'}; font-weight: 600;">Downtrend</td>
-            <td>36.81</td>
-            <td>0.9x</td>
-            <td><span class="badge bg-avoid">AVOID (WATCHLIST)</span></td>
-            <td style="color: #ffffff; font-weight: 500;">Hindari Terlebih Dahulu</td>
-            <td style="color: #10b981; font-weight: 600;">-</td>
-            <td style="color: #ef4444; font-weight: 600;">-</td>
-        </tr><tr data-ticker="INDF" data-company="PT Indofood Sukses Makmur Tbk" 
-            data-price="Rp 6,650" data-action="AVOID (WATCHLIST)" data-badge="bg-avoid"
-            data-roe="12.1" data-per="6.1" data-mcap="58.4 Triliun"
-            data-rsi="27.25" data-volatilitas="23.3% (Standar)" data-liquidity="Tinggi"
-            data-entry="Hindari Terlebih Dahulu" data-target="-" data-sl="-">
-            <td class="txt-ticker">INDF</td>
-            <td style="font-weight: 500;">Rp 6,650</td>
-            <td style="color: {'#10b981' if row['Tren'] == 'Uptrend' else '#ef4444'}; font-weight: 600;">Downtrend</td>
-            <td>27.25</td>
-            <td>1.0x</td>
-            <td><span class="badge bg-avoid">AVOID (WATCHLIST)</span></td>
-            <td style="color: #ffffff; font-weight: 500;">Hindari Terlebih Dahulu</td>
-            <td style="color: #10b981; font-weight: 600;">-</td>
-            <td style="color: #ef4444; font-weight: 600;">-</td>
-        </tr><tr data-ticker="ICBP" data-company="PT Indofood CBP Sukses Makmur Tbk" 
-            data-price="Rp 6,650" data-action="AVOID (WATCHLIST)" data-badge="bg-avoid"
-            data-roe="12.6" data-per="10.5" data-mcap="77.6 Triliun"
-            data-rsi="34.65" data-volatilitas="28.3% (Tinggi)" data-liquidity="Tinggi"
-            data-entry="Hindari Terlebih Dahulu" data-target="-" data-sl="-">
-            <td class="txt-ticker">ICBP</td>
-            <td style="font-weight: 500;">Rp 6,650</td>
-            <td style="color: {'#10b981' if row['Tren'] == 'Uptrend' else '#ef4444'}; font-weight: 600;">Downtrend</td>
-            <td>34.65</td>
-            <td>0.7x</td>
-            <td><span class="badge bg-avoid">AVOID (WATCHLIST)</span></td>
-            <td style="color: #ffffff; font-weight: 500;">Hindari Terlebih Dahulu</td>
-            <td style="color: #10b981; font-weight: 600;">-</td>
-            <td style="color: #ef4444; font-weight: 600;">-</td>
-        </tr><tr data-ticker="PGAS" data-company="PT Perusahaan Gas Negara (Persero) Tbk" 
-            data-price="Rp 1,440" data-action="AVOID (WATCHLIST)" data-badge="bg-avoid"
-            data-roe="10.1" data-per="8.0" data-mcap="34.9 Triliun"
-            data-rsi="37.54" data-volatilitas="21.4% (Standar)" data-liquidity="Tinggi"
-            data-entry="Hindari Terlebih Dahulu" data-target="-" data-sl="-">
-            <td class="txt-ticker">PGAS</td>
-            <td style="font-weight: 500;">Rp 1,440</td>
-            <td style="color: {'#10b981' if row['Tren'] == 'Uptrend' else '#ef4444'}; font-weight: 600;">Downtrend</td>
-            <td>37.54</td>
-            <td>0.4x</td>
-            <td><span class="badge bg-avoid">AVOID (WATCHLIST)</span></td>
-            <td style="color: #ffffff; font-weight: 500;">Hindari Terlebih Dahulu</td>
-            <td style="color: #10b981; font-weight: 600;">-</td>
-            <td style="color: #ef4444; font-weight: 600;">-</td>
+            data-entry="Koleksi Bertahap (Investasi)" data-target="Fokus Siklus Dividen" data-sl="Tidak Perlu SL (Aman Fundamental)"
+            data-planbelum="Emiten fundamental kuat ini sudah terlalu murah secara siklus. Sangat cocok dibeli untuk tujuan tabungan investasi dividen tahunan." data-plansudah="Tidak perlu panik cut-loss berdarah. Fundamental perusahaan sangat sehat; tahan posisi untuk menikmati bagi-hasil dividennya.">
+            <td class="txt-ticker">TLKM</td><td style="font-weight: 500;">Rp 2,370</td>
+            <td style="color: #ef4444; font-weight: 600;">Downtrend</td>
+            <td>27.61</td><td>1.2x</td><td><span class="badge bg-bow">DIVIDEND CUSHION</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Koleksi Bertahap (Investasi)</td><td style="color: #10b981; font-weight: 600;">Fokus Siklus Dividen</td><td style="color: #ef4444; font-weight: 600;">Tidak Perlu SL (Aman Fundamental)</td>
+        </tr><tr data-ticker="UNTR" data-company="PT United Tractors Tbk" data-sektor="Diversified Industry"
+            data-price="Rp 24,375" data-action="WAIT AND SEE" data-badge="bg-avoid"
+            data-roe="7.4" data-per="11.5" data-mcap="85.1 Triliun"
+            data-rsi="43.37" data-volatilitas="30.1% (Tinggi)" data-liquidity="Sangat Tinggi"
+            data-entry="Tahan Cash / Batasi Diri" data-target="Menunggu Konfirmasi" data-sl="Tunggu Sinyal Pembalikan"
+            data-planbelum="<strong>JANGAN MENYENTUH SAHAM INI!</strong> Tren jangka menengah sedang runtuh di bawah garis MA50. Amankan cash Anda." data-plansudah="Struktur harga patah. Jika posisi floating loss masih dangkal, pertimbangkan batasi risiko. Jika dalam, amankan cash tersisa dan jangan tambah muatan.">
+            <td class="txt-ticker">UNTR</td><td style="font-weight: 500;">Rp 24,375</td>
+            <td style="color: #ef4444; font-weight: 600;">Downtrend</td>
+            <td>43.37</td><td>0.5x</td><td><span class="badge bg-avoid">WAIT AND SEE</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Tahan Cash / Batasi Diri</td><td style="color: #10b981; font-weight: 600;">Menunggu Konfirmasi</td><td style="color: #ef4444; font-weight: 600;">Tunggu Sinyal Pembalikan</td>
+        </tr><tr data-ticker="UNVR" data-company="PT Unilever Indonesia Tbk" data-sektor="Consumer Goods"
+            data-price="Rp 1,635" data-action="WAIT AND SEE" data-badge="bg-avoid"
+            data-roe="133.4" data-per="16.7" data-mcap="62.1 Triliun"
+            data-rsi="40.93" data-volatilitas="15.7% (Standar)" data-liquidity="Tinggi"
+            data-entry="Tahan Cash / Batasi Diri" data-target="Menunggu Konfirmasi" data-sl="Tunggu Sinyal Pembalikan"
+            data-planbelum="<strong>JANGAN MENYENTUH SAHAM INI!</strong> Tren jangka menengah sedang runtuh di bawah garis MA50. Amankan cash Anda." data-plansudah="Struktur harga patah. Jika posisi floating loss masih dangkal, pertimbangkan batasi risiko. Jika dalam, amankan cash tersisa dan jangan tambah muatan.">
+            <td class="txt-ticker">UNVR</td><td style="font-weight: 500;">Rp 1,635</td>
+            <td style="color: #ef4444; font-weight: 600;">Downtrend</td>
+            <td>40.93</td><td>0.5x</td><td><span class="badge bg-avoid">WAIT AND SEE</span></td>
+            <td style="color: #ffffff; font-weight: 500;">Tahan Cash / Batasi Diri</td><td style="color: #10b981; font-weight: 600;">Menunggu Konfirmasi</td><td style="color: #ef4444; font-weight: 600;">Tunggu Sinyal Pembalikan</td>
         </tr></tbody>
                 </table>
             </div>
         </section>
+
         <article class="main-disclaimer">
-            <strong>Sanggahan (Disclaimer):</strong> Seluruh data analisis yang disajikan bersifat informatif otomatis berdasarkan data historis bursa. Keputusan transaksi sepenuhnya tanggung jawab pribadi. Baca selengkapnya di <a href="disclaimer.html" style="color:#10b981; text-decoration:underline;">Disclaimer Resmi</a>.
+            <strong>Sanggahan (Disclaimer):</strong> Seluruh data analisis yang disajikan bersifat informatif otomatis berdasarkan data historis bursa. Keputusan transaksi sepenuhnya tanggung jawab pribadi. Baca selengkapnya di <a href="disclaimer.html" style="color:#10b981; text-decoration:underline;">Disclaimer Resmi</a> kami.
         </article>
         
     </main>
 
+    <!-- POPUP MODAL BERGAYA JENDELA DESKTOP LUAS & HP COMFORT -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-box">
             <div class="modal-header-section">
@@ -230,7 +262,6 @@
                 </div>
                 <button class="modal-close" id="modalClose">&times;</button>
             </div>
-            
             <div class="pop-grid">
                 <div class="pop-section">
                     <h4>✨ Ringkasan Strategi (Fundamental)</h4>
@@ -246,7 +277,6 @@
                     <div class="pop-row"><span>Tingkat Likuiditas</span><span class="val" id="popLiquidity"></span></div>
                 </div>
             </div>
-
             <div class="pop-grid">
                 <div class="pop-section">
                     <h4>🎯 Entry Area & Target Plan</h4>
@@ -258,6 +288,21 @@
                     <div class="pop-row"><span>Batas Stop Loss (SL)</span><span class="val" style="color:#ef4444;" id="popStopLoss"></span></div>
                 </div>
             </div>
+            
+            <!-- FITUR UTAMA BARU: JENDELA AKSI GANDA SEBELUM VS SESUDAH PUNYA SAHAM -->
+            <div class="action-plan-container">
+                <div class="action-plan-title">🎯 Panduan Taktis Eksekusi Portofolio</div>
+                <div class="action-grid">
+                    <div class="action-box">
+                        <h5>⚪ Bagi yang Belum Punya Saham</h5>
+                        <p id="popPlanBelum"></p>
+                    </div>
+                    <div class="action-box">
+                        <h5>🔵 Bagi yang Sudah Memegang Saham</h5>
+                        <p id="popPlanSudah"></p>
+                    </div>
+                </div>
+            </div>
 
             <div class="pop-decision-box">
                 <h4>Keputusan Strategi</h4>
@@ -266,10 +311,103 @@
             </div>
         </div>
     </div>
-
     <footer class="footer">
-        <p>&copy; 2026 Sabda. | <a href="disclaimer.html">Disclaimer</a> | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a> | <a href="sitemap.xml">Sitemap</a></p>
+        <p>&copy; 2026 Sabda. | <a href="disclaimer.html">Disclaimer</a> | <a href="opini.html">Opini Pasar</a> | <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a> | <a href="sitemap.xml">Sitemap</a></p>
     </footer>
-    <script src="assets/script.js"></script>
+    
+    <!-- AKTIVASI INTERAKTIF POPUP MODAL MULTI-KOLOM STRATEGI GANDA -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const tableRows = document.querySelectorAll("tbody tr");
+            const overlay = document.getElementById("modalOverlay");
+            const closeBtn = document.getElementById("modalClose");
+
+            // Element target injeksi popup modal
+            const popTicker = document.getElementById("popTicker");
+            const popCompany = document.getElementById("popCompany");
+            const popRoe = document.getElementById("popRoe");
+            const popPer = document.getElementById("popPer");
+            const popMcap = document.getElementById("popMcap");
+            const popLastPrice = document.getElementById("popLastPrice");
+            const popRsi = document.getElementById("popRsi");
+            const popVolatilitas = document.getElementById("popVolatilitas");
+            const popLiquidity = document.getElementById("popLiquidity");
+            const popEntryArea = document.getElementById("popEntryArea");
+            const popTargetProfit = document.getElementById("popTargetProfit");
+            const popStopLoss = document.getElementById("popStopLoss");
+            
+            // Kolom baru strategi ganda
+            const popPlanBelum = document.getElementById("popPlanBelum");
+            const popPlanSudah = document.getElementById("popPlanSudah");
+            
+            const popBigAction = document.getElementById("popBigAction");
+
+            // Fungsi klik baris tabel menyuntikkan data dinamis bursa
+            tableRows.forEach(row => {
+                row.addEventListener("click", function () {
+                    popTicker.innerText = this.getAttribute("data-ticker");
+                    popCompany.innerText = this.getAttribute("data-company");
+                    popRoe.innerText = this.getAttribute("data-roe") + "%";
+                    popPer.innerText = this.getAttribute("data-per") + "x";
+                    popMcap.innerText = this.getAttribute("data-mcap");
+                    popLastPrice.innerText = this.getAttribute("data-price");
+                    popRsi.innerText = this.getAttribute("data-rsi");
+                    popVolatilitas.innerText = this.getAttribute("data-volatilitas");
+                    popLiquidity.innerText = this.getAttribute("data-liquidity");
+                    popEntryArea.innerText = this.getAttribute("data-entry");
+                    popTargetProfit.innerText = this.getAttribute("data-target");
+                    popStopLoss.innerText = this.getAttribute("data-sl");
+                    
+                    // Suntik teks panduan aksi ganda penahan modal ritel harian
+                    popPlanBelum.innerHTML = this.getAttribute("data-planbelum");
+                    popPlanSudah.innerHTML = this.getAttribute("data-plansudah");
+
+                    // Memproses gaya kelas badge status rekomendasi akhir
+                    const rawAction = this.getAttribute("data-action");
+                    const badgeClass = this.getAttribute("data-badge");
+                    
+                    popBigAction.className = "pop-big-action " + badgeClass;
+                    popBigAction.innerText = rawAction;
+
+                    // Membuka jendela popup modal secara smooth
+                    overlay.classList.add("active");
+                });
+            });
+
+            // Logika tombol tutup jendela popup
+            closeBtn.addEventListener("click", function () {
+                overlay.classList.remove("active");
+            });
+
+            overlay.addEventListener("click", function (e) {
+                if (e.target === overlay) {
+                    overlay.classList.remove("active");
+                }
+            });
+        });
+
+        // LOGIKA FILTER SEKTOR STATIS
+        function filterSektor(sektorName) {
+            const rows = document.querySelectorAll("tbody tr");
+            const buttons = document.querySelectorAll(".btn-filter");
+            
+            buttons.forEach(btn => {
+                if(btn.innerText.includes(sektorName) || (sektorName === 'ALL' && btn.innerText.includes('Tampilkan Semua'))) {
+                    btn.classList.add("active");
+                } else {
+                    btn.classList.remove("active");
+                }
+            });
+
+            rows.forEach(row => {
+                const itemSektor = row.getAttribute("data-sektor");
+                if (sektorName === "ALL" || itemSektor === sektorName) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+    </script>
 </body>
 </html>
